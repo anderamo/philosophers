@@ -6,7 +6,7 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:02:34 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/07 15:29:26 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/07 15:57:16 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,19 @@ t_philo	*destroy_mutex(t_philo	*philo)
 
 void *eat(void *eat)
 {
-	t_philo *philo;
-	int			i;
+	t_philo	*philo;
+	int		i;
 
-	philo = (t_philo*)eat;
+	i = (int)eat;
+	printf("%d\n", philo->tid[i]);
+	/*
 	pthread_mutex_lock(&philo->mutex_eat);
 	gettimeofday(&philo->data.start, NULL);
 	printf("%ld Philo %zu is eating\n", philo->data.start.tv_sec * 1000000 + philo->data.start.tv_usec, philo->philo_index);
 	usleep(philo->data.t_eat);
 	gettimeofday(&philo->data.end, NULL);
 	pthread_mutex_unlock(&philo->mutex_eat);
-	return (NULL);
-}
-
-void *die(void *die)
-{
-	t_philo *philo;
-
-	philo = (t_philo*)die;
-	pthread_mutex_lock(&philo->mutex_die);
-	gettimeofday(&philo->data.start, NULL);
-	usleep(philo->data.t_die);
-	printf("%ld ", philo->data.start.tv_sec * 1000000 + philo->data.start.tv_usec);
-	printf("Philo %zu is eating\n", philo->philo_index);
-	pthread_mutex_unlock(&philo->mutex_die);
+	*/
 	return (NULL);
 }
 
@@ -66,18 +55,9 @@ void philosophers(t_philo		*philo)
 	i = 0;
 	while(i < philo->data.philo)
 	{
-		philo->philo_index = i;
-		pthread_create(&philo->tid[i], NULL, eat, (void *)philo);
+		pthread_create(&philo->tid[i], NULL, eat, (void *)i);
 		i++;
 	}
-	/*
-	i = 0;
-	while(i < philo->data.philo)
-	{
-		pthread_create(&philo->tid[i], NULL, die, (void *)philo);
-		i++;
-	}
-	*/
 	i = 0;
 	while(i < philo->data.philo)
 	{
@@ -105,12 +85,3 @@ int	main(int a, char **argv)
 		error_print(0);
 	return (0);
 }
-
-
-/*
-	while(i < philo->data.philo)
-	{
-		pthread_create(&philo->tid[i], NULL, eat, (void *)philo);
-		i++;
-	}
-*/
