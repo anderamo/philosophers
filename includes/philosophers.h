@@ -6,7 +6,7 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 15:59:05 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/07 15:11:13 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/13 20:00:01 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,30 @@
 # include <unistd.h>
 # include <pthread.h>
 
-
 typedef struct s_data
 {
-	size_t	t_die;
-	size_t	t_eat;
 	size_t	eat_count;
-	size_t	t_sleep;
-	size_t	philo;
+	int		fork;
 	struct timeval end;
 	struct timeval start;
 }	t_data;
 
 typedef struct s_philo
 {
-	t_data			data;
+	t_data			*data;
 	pthread_t		*tid;
-	size_t			philo_index;
 	pthread_mutex_t	mutex_die;
-	pthread_mutex_t	mutex_eat;
+	pthread_mutex_t	*mutex_eat;
 	pthread_mutex_t	mutex_sleep;
+	int				*a;
+	size_t	eat_limit;
+	size_t	t_sleep;
+	size_t	t_die;
+	size_t	t_eat;
+	size_t	philo;
 }	t_philo;
+
+t_philo		philo;
 
 
 int		ft_atoi_perf(char *str);
