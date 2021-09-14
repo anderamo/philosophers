@@ -2,7 +2,11 @@ NAME = philo
 
 MANDATORY	=	main.c\
 				src/ft_utils.c\
-				src/error.c
+				src/error.c\
+				src/routine.c\
+				src/mutex.c\
+				src/mutex_2.c
+
 
 OBJ = $(MANDATORY:.c=.o)
 
@@ -10,15 +14,14 @@ CC = gcc
 
 INC_1 = -I./includes
 
-#FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror
+
+SANITIZE	=-fsanitize=address -g3
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		$(MAKE) -C ./ft_printf
-		cp ft_printf/libftprintf.a .
-		cp ft_printf/libft/libft.a .
-		$(CC) $(FLAGS)  $(INC_1) $(MANDATORY) libftprintf.a libft.a -lpthread -fsanitize=address -g3 -o $(NAME)
+		$(CC) $(FLAGS) $(INC_1) $(MANDATORY) $(SANITIZE) -lpthread  -o $(NAME)
 
 clean:
 	rm -rf *.o

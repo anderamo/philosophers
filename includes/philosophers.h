@@ -6,14 +6,13 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 15:59:05 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/13 20:00:01 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/14 11:36:50 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include "../ft_printf/includes/ft_printf.h"
 # include <stddef.h>
 # include <stdio.h>
 # include <sys/time.h>
@@ -25,10 +24,10 @@
 
 typedef struct s_data
 {
-	size_t	eat_count;
-	int		fork;
-	struct timeval end;
-	struct timeval start;
+	size_t			eat_count;
+	int				fork;
+	struct timeval	end;
+	struct timeval	start;
 }	t_data;
 
 typedef struct s_philo
@@ -39,17 +38,21 @@ typedef struct s_philo
 	pthread_mutex_t	*mutex_eat;
 	pthread_mutex_t	mutex_sleep;
 	int				*a;
-	size_t	eat_limit;
-	size_t	t_sleep;
-	size_t	t_die;
-	size_t	t_eat;
-	size_t	philo;
+	size_t			eat_limit;
+	long			t_sleep;
+	long			t_die;
+	long			t_eat;
+	size_t			philo;
 }	t_philo;
 
-t_philo		philo;
-
+t_philo		g_philo;
 
 int		ft_atoi_perf(char *str);
 void	error_print(int error);
+void	init_mutex(void);
+int		mutex_lock_eat(size_t i);
+void	mutex_unlock_eat(int mute, size_t i);
+void	destroy_mutex(void);
+void	*routine(void *eat);
 
 #endif
