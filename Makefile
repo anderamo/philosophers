@@ -1,14 +1,16 @@
 NAME = philo
 
+NAME_BONUS = philo_bonus
+
 MANDATORY	=	main.c\
 				src/ft_utils.c\
 				src/error.c\
 				src/routine.c\
 				src/mutex.c\
-				src/mutex_2.c
+				src/mutex_2.c\
+				src/mutex_3.c
 
-
-OBJ = $(MANDATORY:.c=.o)
+OBJ_1 = $(MANDATORY:.c=.o)
 
 CC = gcc
 
@@ -20,8 +22,9 @@ SANITIZE	=-fsanitize=address -g3
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-		$(CC) $(FLAGS) $(INC_1) $(MANDATORY) $(SANITIZE) -lpthread  -o $(NAME)
+$(NAME): $(OBJ_1)
+		$(CC) $(FLAGS) $(INC_1) $(MANDATORY) $(SANITIZE) -lpthread -o $(NAME)
+
 
 clean:
 	rm -rf *.o

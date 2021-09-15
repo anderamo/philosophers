@@ -6,7 +6,7 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 15:59:05 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/14 20:04:00 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:59:02 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,10 @@ void	mutex_unlock_eat(int mute, size_t i);
 void	destroy_mutex(void);
 void	*routine(void *eat);
 void	check_alive(size_t i);
+int		mute_lock_final_par(size_t i);
+int		mute_lock_head_par(size_t i);
+int		mute_lock_middle_par(size_t i);
+void	check_eat_count(size_t i, int mute);
+int		check_all_eat(void);
 
 #endif

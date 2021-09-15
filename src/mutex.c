@@ -6,7 +6,7 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 11:34:55 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/14 11:49:24 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:47:06 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	init_mutex(void)
 
 void	mutex_unlock_eat(int mute, size_t i)
 {
-	pthread_mutex_unlock(&g_philo.mutex_eat[mute]);
 	g_philo.data[mute].fork = 1;
 	g_philo.data[i].fork = 1;
+	pthread_mutex_unlock(&g_philo.mutex_eat[i]);
+	pthread_mutex_unlock(&g_philo.mutex_eat[mute]);
 }
 
 void	destroy_mutex(void)

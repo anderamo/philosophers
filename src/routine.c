@@ -6,7 +6,7 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 11:36:31 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/14 20:33:03 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/15 14:00:47 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	check_alive(size_t i)
 		> (g_philo.t_die * 1000))
 	{
 		printf("%ld Philo %zu die\n", (g_philo.data[i].end.tv_sec
-			* 1000 + g_philo.data[i].end.tv_usec), i + 1);
+				* 1000 + g_philo.data[i].end.tv_usec), i + 1);
 		destroy_mutex();
 		exit(1);
 	}
@@ -85,13 +85,11 @@ void	*routine(void *eat)
 		check_alive(i);
 		mute = mutex_lock_eat(i);
 	}
-	pthread_mutex_lock(&g_philo.mutex_eat[i]);
 	g_philo.data[i].eat_count++;
 	eat_philo(i, mute);
-	free(eat);
-	pthread_mutex_unlock(&g_philo.mutex_eat[i]);
 	mutex_unlock_eat(mute, i);
 	sleep_think_philo(i);
 	check_alive(i);
+	free(eat);
 	return (NULL);
 }

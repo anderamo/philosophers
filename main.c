@@ -6,7 +6,7 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:02:34 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/14 20:11:11 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/15 14:07:50 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	philosophers(void)
 		{
 			pthread_join(g_philo.tid[i], NULL);
 			i++;
+			usleep(1000);
 		}
 	}
 	destroy_mutex();
