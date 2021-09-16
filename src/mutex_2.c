@@ -6,7 +6,7 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 11:49:26 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/15 13:56:07 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/15 17:26:08 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ int	mutex_lock_eat(size_t i)
 {
 	int	mute;
 
-	while (g_philo.philo == 1)
-		check_alive(i);
 	mute = -1;
+	if (g_philo.philo == 1)
+		return (mute);
 	if (i % 2 == 0)
 	{
 		if (i == 0)

@@ -6,7 +6,7 @@
 /*   By: aamorin- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:02:34 by aamorin-          #+#    #+#             */
-/*   Updated: 2021/09/15 14:07:50 by aamorin-         ###   ########.fr       */
+/*   Updated: 2021/09/16 10:45:29 by aamorin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,27 @@ int	check_all_eat(void)
 			return (0);
 		i++;
 	}
+	destroy_mutex();
 	return (1);
+}
+
+void	detach_all(void)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < g_philo.philo)
+	{
+		pthread_detach(g_philo.tid[i]);
+		i++;
+	}
 }
 
 void	philosophers(void)
 {
-	size_t	i;
+	size_t		i;
+	void		*pv;
 
-	g_philo.mutex_eat = (pthread_mutex_t *)malloc(g_philo.philo
-			* sizeof(pthread_mutex_t));
-	g_philo.tid = (pthread_t *)malloc(g_philo.philo * sizeof(pthread_t));
-	g_philo.data = (t_data *)malloc(g_philo.philo * sizeof(t_data));
 	init_mutex();
 	while (!check_all_eat())
 	{
@@ -50,12 +60,13 @@ void	philosophers(void)
 		i = 0;
 		while (i < g_philo.philo)
 		{
-			pthread_join(g_philo.tid[i], NULL);
+			pthread_join(g_philo.tid[i], &pv);
+			if ((int)pv == -2)
+				return ;
 			i++;
-			usleep(1000);
+			usleep(10);
 		}
 	}
-	destroy_mutex();
 }
 
 int	main(int a, char **argv)
@@ -74,6 +85,10 @@ int	main(int a, char **argv)
 		}
 		else
 			g_philo.eat_limit = 0;
+		g_philo.mutex_eat = (pthread_mutex_t *)malloc(g_philo.philo
+				* sizeof(pthread_mutex_t));
+		g_philo.tid = (pthread_t *)malloc(g_philo.philo * sizeof(pthread_t));
+		g_philo.data = (t_data *)malloc(g_philo.philo * sizeof(t_data));
 		philosophers();
 	}
 	else
